@@ -1,0 +1,13 @@
+@import "base/variables";
+@import "base/mixins";
+@import "../tailwindcss";
+
+html {
+  font-size: #{$unit-size}px;
+}
+body,
+html {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}

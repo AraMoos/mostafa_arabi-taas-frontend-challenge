@@ -1,0 +1,17 @@
+@use "sass:math";
+
+@mixin set-colors {
+
+    @each $name,
+    $color in $colors {
+        .color-#{$name} {
+            color: #{$color} !important;
+        }
+
+        .bg-color-#{$name} {
+            background-color: #{$color} !important;
+        }
+    }
+}
+
+@include set-colors;
