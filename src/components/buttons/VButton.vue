@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-/* Props */
+// Props
 const props = defineProps({
   label: { type: String, default: "label" },
 });
-/* Props */
+
 </script>
 
 <template>

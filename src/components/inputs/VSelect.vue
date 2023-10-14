@@ -43,7 +43,6 @@ const selectOption = (option: any) => {
         autocomplete="off"
         v-model="searchVal"
         @input="filterData"
-        @change="filterData"
       />
       <span class="am-select-group-pl absolute">{{ placeholder }}</span>
       <div class="am-select-group-options absolute z-30 w-full box-border">

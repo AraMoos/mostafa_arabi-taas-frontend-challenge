@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import LogOutIcon from "@/assets/icons/LogOutIcon.vue";
-import AmSelect from "@/components/inputs/AmSelect.vue";
+import VSelect from "@/components/inputs/VSelect.vue";
 
 const repoName = ref("");
 const repositoriesList = [
@@ -26,8 +26,8 @@ const branchesList = [
     <!--  Filter -->
     <div class="flex-1 box-border px-5">
       <div class="flex flex-col gap-y-6">
-        <AmSelect label="Repositories" :options="repositoriesList" placeholder="Find a repository…" />
-        <AmSelect label="Branches" :options="branchesList" placeholder="Find a branch..." />
+        <VSelect label="Repositories" :options="repositoriesList" placeholder="Find a repository…" />
+        <VSelect label="Branches" :options="branchesList" placeholder="Find a branch..." />
       </div>
     </div>
     <!--  Filter -->
@@ -42,18 +42,6 @@ const branchesList = [
         <LogOutIcon />
         <span class="color-gray-text text-xs uppercase">log Out</span>
       </span>
-      <!--  <span class="flex items-center gap-x-3">
-        <img
-          src="https://avatars.githubusercontent.com/u/111636676?v=4"
-          alt=""
-          srcset=""
-          class="rounded-full w-12 h-12 bg-color-dark-20"
-        />
-        <div class="text-sm c-gray-text">
-          <p class="font-normal">Hello,</p>
-          <p class="font-semibold">AraMoos</p>
-        </div>
-      </span> -->
     </div>
     <!--  Log Out -->
   </aside>

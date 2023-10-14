@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AmButton from "@/components/buttons/AmButton.vue";
+import VButton from "@/components/buttons/VButton.vue";
 </script>
 <template>
   <div class="w-full h-full flex items-center justify-center">
@@ -7,7 +7,7 @@ import AmButton from "@/components/buttons/AmButton.vue";
       class="box-border rounded-xl p-6 bg-white w-11/12 max-w-[576px] min-h-[300px] flex items-center"
     >
       <div class="w-max mx-auto">
-        <AmButton label="Authorize my Github account"/>
+        <VButton label="Authorize my Github account"/>
       </div>
     </div>
   </div>

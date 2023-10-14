@@ -7,7 +7,7 @@ import { RouterView } from "vue-router";
     class="p-0 overflow-hidden bg-color-dark-20 w-screen h-screen max-h-screen max-w-full"
   >
     <main
-      class="flex flex-row overflow-hidden gap-x-9 w-full h-full max-h-full"
+      class="flex flex-row overflow-hidden gap-x-8 w-full h-full max-h-full"
     >
       <RouterView />
     </main>
