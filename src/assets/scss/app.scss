@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 @import "base/variables";
 @import "base/mixins";
+@import "inputs";
 @import "../tailwindcss";
 
 html {
@@ -10,4 +12,47 @@ html {
   padding: 0;
   margin: 0;
   overflow: hidden;
+  * {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    user-select: none;
+
+    /* width */
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background-color: #8888884d;
+      border-radius: 2px;
+      opacity: 0.5;
+      @include transition-(300, background-color);
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: #888888;
+      }
+    }
+  }
+  aside {
+    .log-out {
+      &:hover {
+        path,
+        span {
+          fill: get-color("primary");
+          color: get-color("primary") !important;
+          @include transition-(200);
+        }
+      }
+    }
+  }
 }
+
+

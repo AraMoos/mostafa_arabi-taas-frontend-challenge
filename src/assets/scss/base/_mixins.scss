@@ -1,5 +1,22 @@
 @use "sass:math";
 
+@function toRem($value) {
+    @if type-of($value)==number {
+        $t: math.div($value, $unit-size)+rem;
+        @return $t;
+    }
+
+    @return 0+rem;
+}
+
+@function get-color($name) {
+    @if map-has-key($colors, $name) {
+        @return map-get($colors, $name);
+    }
+
+    @return transparent;
+}
+
 @mixin set-colors {
 
     @each $name,
@@ -12,6 +29,27 @@
             background-color: #{$color} !important;
         }
     }
+}
+
+@mixin transition-($duration, $attrs: all) {
+    $attr-val: #{$duration}ms linear;
+    $attr-list: "";
+
+    @for $i from 1 through length($attrs) {
+        $attr: nth($attrs, $i);
+
+        @if $attr-list !="" {
+            $attr-list: #{$attr-list} ",";
+        }
+
+        $attr-list: #{$attr-list} #{$attr} #{$attr-val};
+    }
+
+    -webkit-transition: $attr-list;
+    -moz-transition: $attr-list;
+    -ms-transition: $attr-list;
+    -o-transition: $attr-list;
+    transition: $attr-list;
 }
 
 @include set-colors;

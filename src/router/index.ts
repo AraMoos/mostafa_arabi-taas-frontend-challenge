@@ -5,8 +5,14 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      name: "repositories",
+      component: () => import("@/views/pages/repositories/Index.vue"),
+      meta: { requiresAuth: false },
+    },
+    {
+      path: "/auth",
       name: "authorize",
-      component: () => import("@/views/pages/auth/Authorize.vue"),
+      component: () => import("@/views/pages/authorize/Index.vue"),
       meta: { requiresAuth: false },
     },
   ],
@@ -17,7 +23,7 @@ router.beforeEach((to, from) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     return {
-      path: "/components/checkBoxs",
+      path: "/",
       // save the location we were at to come back later
       query: { redirect: to.fullPath },
     };
