@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuth } from "@/stores/auth";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +9,7 @@ const router = createRouter({
       path: "/",
       name: "repositories",
       component: () => import("@/views/pages/repositories/Index.vue"),
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: true },
     },
     {
       path: "/auth",
@@ -19,13 +21,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-  if (to.meta.requiresAuth) {
+  const auth = useAuth();
+  if (to.meta.requiresAuth && !auth.isLoggedin()) {
     // this route requires auth, check if logged in
-    // if not, redirect to login page.
+    // if not, redirect to Authorize page.
     return {
-      path: "/",
-      // save the location we were at to come back later
-      query: { redirect: to.fullPath },
+      path: "/auth",
     };
   }
 });
