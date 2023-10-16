@@ -2,6 +2,9 @@
 import { ref } from "vue";
 import LogOutIcon from "@/assets/icons/LogOutIcon.vue";
 import VSelect from "@/components/inputs/VSelect.vue";
+import { useAuth } from "@/stores/auth";
+
+const auth = useAuth();
 
 const repoName = ref("");
 const repositoriesList = [
@@ -26,8 +29,16 @@ const branchesList = [
     <!--  Filter -->
     <div class="flex-1 box-border px-5">
       <div class="flex flex-col gap-y-6">
-        <VSelect label="Repositories" :options="repositoriesList" placeholder="Find a repository…" />
-        <VSelect label="Branches" :options="branchesList" placeholder="Find a branch..." />
+        <VSelect
+          label="Repositories"
+          :options="repositoriesList"
+          placeholder="Find a repository…"
+        />
+        <VSelect
+          label="Branches"
+          :options="branchesList"
+          placeholder="Find a branch..."
+        />
       </div>
     </div>
     <!--  Filter -->
@@ -36,12 +47,13 @@ const branchesList = [
     <div
       class="pt-4 border-t box-border flex px-3 justify-center border-gray-200"
     >
-      <span
+      <button
         class="log-out w-max flex flex-col items-center justify-center cursor-pointer"
+        @click="auth.logOut"
       >
         <LogOutIcon />
         <span class="color-gray-text text-xs uppercase">log Out</span>
-      </span>
+      </button>
     </div>
     <!--  Log Out -->
   </aside>
