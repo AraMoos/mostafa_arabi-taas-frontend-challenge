@@ -45,3 +45,13 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+## App pictures
+
+#### Authorize page
+
+![Screenshot](app-authorize.png)
+
+#### Repositories page
+
+![Screenshot](app-repositories.png)
