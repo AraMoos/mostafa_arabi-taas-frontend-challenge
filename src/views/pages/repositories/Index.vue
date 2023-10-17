@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import TheSideBar from "./components/TheSideBar.vue";
 import TheHeading from "./components/TheHeading.vue";
+import CommitsList from "./components/commits/CommitsList.vue";
 import { useAuth } from "@/stores/auth";
 import { useRepositories } from "@/stores/repositories";
 
@@ -24,6 +25,6 @@ onMounted(async () => {
   <TheSideBar />
   <div class="flex flex-col gap-y-4 flex-1 py-4 pr-8">
     <TheHeading />
-    <div class="flex flex-1 px-8 py-3 bg-white rounded-xl"></div>
+    <CommitsList />
   </div>
 </template>

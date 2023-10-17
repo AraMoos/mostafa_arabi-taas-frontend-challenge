@@ -10,9 +10,16 @@ const repositories = useRepositories();
 
 // Methods
 
-const getRepo = (current: any) => {
-  if (current?.value) {
-    repositories.getBranches(current.value);
+const getBranchesList = async (current: any) => {
+  if (current?.text) {
+    repositories.setCurrentRepo(current);
+    await repositories.getBranches(current.text);
+  }
+};
+
+const getCommitsList = async (current: any) => {
+  if (current?.text && repositories.currentRepo) {
+    await repositories.getCommits(repositories.currentRepo.text, current.text);
   }
 };
 </script>
@@ -28,12 +35,13 @@ const getRepo = (current: any) => {
           label="Repositories"
           :options="repositories.reposList"
           placeholder="Find a repository…"
-          @on-change="getRepo"
+          @on-change="getBranchesList"
         />
         <VSelect
           label="Branches"
           :options="repositories.branchesList"
           placeholder="Find a branch..."
+          @on-change="getCommitsList"
         />
       </div>
     </div>

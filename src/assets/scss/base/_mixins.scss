@@ -28,6 +28,9 @@
         .bg-color-#{$name} {
             background-color: #{$color} !important;
         }
+        .fill-#{$name} {
+            fill: #{$color} !important;
+        }
     }
 }
 

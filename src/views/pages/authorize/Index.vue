@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import VButton from "@/components/buttons/VButton.vue";
+import Loader from "@/components/Loader.vue";
 import { useAuth } from "@/stores/auth";
 import router from "@/router";
 import axios from "axios";
@@ -59,7 +60,7 @@ onMounted(() => {
           label="Authorize my Github account"
           @on-click="getAuthorize"
         />
-        <div v-else>Loading</div>
+        <div v-else><Loader/></div>
       </div>
     </div>
   </div>

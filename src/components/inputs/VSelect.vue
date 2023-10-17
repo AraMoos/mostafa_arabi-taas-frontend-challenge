@@ -26,21 +26,21 @@ const emits = defineEmits(["onChange"]);
 const filterData = () => {
   const val = searchVal.value.trim().toLowerCase();
   filteredOptions.value = props.options.filter((el: any) =>
-    el.value.toLowerCase().includes(val)
+    el.text.toLowerCase().includes(val)
   );
 };
 
 const selectOption = (option: any) => {
   selectedOption.value = option;
-  searchVal.value = option?.value || "";
+  searchVal.value = option?.text || "";
   emits("onChange", selectedOption.value);
 };
 
 const init = () => {
-  filterData();
+  filteredOptions.value = props.options;
   if (props.options.length) {
     selectedOption.value = props.options[0];
-    searchVal.value = props.options[0].value;
+    searchVal.value = props.options[0].text;
     emits("onChange", selectedOption.value);
   }
 };
@@ -79,7 +79,7 @@ watch(
             :key="option.id"
             @click="selectOption(option)"
           >
-            <span>{{ option.value }}</span>
+            <span>{{ option.text }}</span>
           </li>
         </ul>
       </div>
