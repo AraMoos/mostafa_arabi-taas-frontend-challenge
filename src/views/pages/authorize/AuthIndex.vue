@@ -6,10 +6,13 @@ import { useAuth } from "@/stores/auth";
 import router from "@/router";
 import axios from "axios";
 
-const client_id = "f10d8361dbbfde11cf9b";
-const client_secret = "1c576c265bed99a6d2abaf2cacd6da351edd0d2f";
+// if you want to use your own github oath app replace client_id and client_secret by yours in .env file
+const client_id =  import.meta.env.VITE_CLIENT_ID;
+const client_secret = import.meta.env.VITE_CLIENT_SECRET;
+
+//base urls
 const baseUrl = import.meta.env.VITE_GITHUB_BASE_URL;
-const corsAnywhere = import.meta.env.VITE_CORS_ANYWHERE;
+const corsAnywhere = import.meta.env.VITE_CORS_ANYWHERE; // use this to avoid cors
 
 // State
 const isLoading = ref(true);
