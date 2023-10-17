@@ -3,23 +3,18 @@ import { ref } from "vue";
 import LogOutIcon from "@/assets/icons/LogOutIcon.vue";
 import VSelect from "@/components/inputs/VSelect.vue";
 import { useAuth } from "@/stores/auth";
+import { useRepositories } from "@/stores/repositories";
 
 const auth = useAuth();
+const repositories = useRepositories();
 
-const repoName = ref("");
-const repositoriesList = [
-  { id: 1, value: "Joggola" },
-  { id: 2, value: "mostafa_arabi-taas-frontend-challenge" },
-  { id: 3, value: "afraharabi" },
-  { id: 4, value: "codemaroc" },
-  { id: 5, value: "casablanca.net" },
-  { id: 6, value: "eCommercial" },
-];
-const branchesList = [
-  { id: 1, value: "main" },
-  { id: 2, value: "develop" },
-  { id: 3, value: "prduction" },
-];
+// Methods
+
+const getRepo = (current: any) => {
+  if (current?.value) {
+    repositories.getBranches(current.value);
+  }
+};
 </script>
 
 <template>
@@ -31,12 +26,13 @@ const branchesList = [
       <div class="flex flex-col gap-y-6">
         <VSelect
           label="Repositories"
-          :options="repositoriesList"
+          :options="repositories.reposList"
           placeholder="Find a repository…"
+          @on-change="getRepo"
         />
         <VSelect
           label="Branches"
-          :options="branchesList"
+          :options="repositories.branchesList"
           placeholder="Find a branch..."
         />
       </div>

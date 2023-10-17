@@ -13,9 +13,9 @@ const app = createApp(App);
 
 app.use(pinia);
 app.use(router);
-app.use(VueAxios, axios)
+app.use(VueAxios, axios);
 
-axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+axios.defaults.headers.common["Content-Type"] = "application/x-www-form-urlencoded";
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 app.mount("#app");

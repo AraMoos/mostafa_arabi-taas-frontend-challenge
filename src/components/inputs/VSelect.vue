@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, watch, onMounted } from "vue";
 
 // Props
 
@@ -18,6 +18,9 @@ const filteredOptions = ref(props.options);
 const searchVal = ref("");
 const selectedOption = ref(null);
 
+//Define Emits
+const emits = defineEmits(["onChange"]);
+
 // Methods
 
 const filterData = () => {
@@ -26,10 +29,34 @@ const filterData = () => {
     el.value.toLowerCase().includes(val)
   );
 };
+
 const selectOption = (option: any) => {
   selectedOption.value = option;
   searchVal.value = option?.value || "";
+  emits("onChange", selectedOption.value);
 };
+
+const init = () => {
+  filterData();
+  if (props.options.length) {
+    selectedOption.value = props.options[0];
+    searchVal.value = props.options[0].value;
+    emits("onChange", selectedOption.value);
+  }
+};
+
+// Mounted
+onMounted(() => {
+  init();
+});
+
+// Watcher Prop options change
+watch(
+  () => props.options,
+  (values) => {
+    init();
+  }
+);
 </script>
 
 <template>

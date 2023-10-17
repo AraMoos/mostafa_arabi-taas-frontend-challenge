@@ -30,8 +30,7 @@ const checkUrl = () => {
       .get(apiUrl, { headers: { Accept: "application/json" } })
       .then(async (res) => {
         if (res.status == 200) {
-          await auth.userSession(res.data.access_token);
-          console.log(res.data.access_token)
+          await auth.userSession(res.data.access_token, () => {});
           router.push("/");
         }
       })
@@ -42,6 +41,7 @@ const checkUrl = () => {
     isLoading.value = false;
   }
 };
+
 // Mounted
 onMounted(() => {
   if (auth.isLoggedin()) router.push("/");

@@ -13,13 +13,13 @@ export const useAuth = defineStore("auth", () => {
     const token = localStorage.getItem("@accessToken");
     // Create an instance of Octokit with user access token
     if (token) {
-      return true;
+      return token;
     } else {
-      return false;
+      return null;
     }
   }
 
-  function userSession(token: string) {
+  function userSession(token: string, callback: () => void) {
     return new Promise<boolean>(async (resolve) => {
       localStorage.setItem("@accessToken", token);
       const octokit = new Octokit({
@@ -33,6 +33,7 @@ export const useAuth = defineStore("auth", () => {
         username.value = login;
         accessToken.value = token;
         avatarUrl.value = avatar_url;
+        callback();
         resolve(true);
       } catch (error) {
         logOut();

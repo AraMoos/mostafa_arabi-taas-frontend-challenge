@@ -2,22 +2,22 @@
 import { onMounted } from "vue";
 import TheSideBar from "./components/TheSideBar.vue";
 import TheHeading from "./components/TheHeading.vue";
-import { Octokit } from "octokit";
 import { useAuth } from "@/stores/auth";
+import { useRepositories } from "@/stores/repositories";
 
 const auth = useAuth();
+const repositories = useRepositories();
 
-const octokit = new Octokit({
-  auth: auth.accessToken,
-});
 // Mounted
 onMounted(async () => {
-  setTimeout(async () => {
-    const res = await octokit.request(
-      `GET /users/${auth.username}/repos`
-    );
-    console.log(res);
-  }, 1000);
+  const token = auth.isLoggedin();
+  if (token && auth.accessToken === "") {
+    await auth.userSession(token, async () => {
+      await repositories.getRepos();
+    });
+  } else if (token) {
+    await repositories.getRepos();
+  }
 });
 </script>
 <template>
