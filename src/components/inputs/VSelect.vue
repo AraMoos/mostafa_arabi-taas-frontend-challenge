@@ -7,7 +7,7 @@ const props = defineProps({
   label: { type: String, default: "label" },
   placeholder: { type: String, default: "label" },
   options: {
-    type: Object,
+    type: Array,
     default: () => [],
   },
 });
@@ -53,7 +53,7 @@ onMounted(() => {
 // Watcher Prop options change
 watch(
   () => props.options,
-  (values) => {
+  () => {
     init();
   }
 );

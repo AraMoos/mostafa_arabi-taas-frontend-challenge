@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref, onUnmounted } from "vue";
-import Loader from "@/components/Loader.vue";
+import { ref } from "vue";
+import VLoader from "@/components/VLoader.vue";
 import CommitsListItem from "./CommitsListItem.vue";
 import { useRepositories } from "@/stores/repositories";
 // Refs
-const pagination = ref({ per_page: 7, page: 1 });
+const pagination = ref({ per_page: 20, page: 1 });
 const loadMore = ref(false);
 // Stores
 const repositories = useRepositories();
@@ -47,15 +47,20 @@ const doScroll = async (event) => {
           :item="commit"
         />
         <li v-if="loadMore" class="flex items-center justify-center p-4">
-          <Loader />
+          <VLoader />
         </li>
-        <li v-if="repositories.lastPage" class="flex items-center justify-center p-4">
-          <span class="text-xs font-medium text-gray-500 uppercase">No more commits</span>
+        <li
+          v-if="repositories.lastPage"
+          class="flex items-center justify-center p-4"
+        >
+          <span class="text-xs font-medium text-gray-500 uppercase"
+            >No more commits</span
+          >
         </li>
       </ul>
     </div>
     <div class="flex flex-1 items-center justify-center" v-else>
-      <Loader />
+      <VLoader />
     </div>
   </div>
 </template>

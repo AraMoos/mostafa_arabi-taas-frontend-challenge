@@ -7,19 +7,19 @@ const router = createRouter({
     {
       path: "/",
       name: "repositories",
-      component: () => import("@/views/pages/repositories/Index.vue"),
+      component: () => import("@/views/pages/repositories/ReposIndex.vue"),
       meta: { requiresAuth: true },
     },
     {
       path: "/auth",
       name: "authorize",
-      component: () => import("@/views/pages/authorize/Index.vue"),
+      component: () => import("@/views/pages/authorize/AuthIndex.vue"),
       meta: { requiresAuth: false },
     },
   ],
 });
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
   const auth = useAuth();
   if (to.meta.requiresAuth && !auth.isLoggedin()) {
     // this route requires auth, check if logged in

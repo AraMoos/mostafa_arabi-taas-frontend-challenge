@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import LogOutIcon from "@/assets/icons/LogOutIcon.vue";
 import VSelect from "@/components/inputs/VSelect.vue";
 import { useAuth } from "@/stores/auth";

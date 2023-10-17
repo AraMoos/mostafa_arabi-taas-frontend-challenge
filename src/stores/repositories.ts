@@ -6,7 +6,7 @@ import { useAuth } from "@/stores/auth";
 const auth = useAuth();
 
 export const useRepositories = defineStore("repositories", () => {
-  let initArray: Array<object> = [];
+  const initArray: Array<object> = [];
   const reposList = ref(initArray);
   const branchesList = ref(initArray);
   const commitsList = ref(initArray);
@@ -26,7 +26,7 @@ export const useRepositories = defineStore("repositories", () => {
         const { data } = await octokit.request(
           `GET /users/${auth.username}/repos`
         );
-        let list: Array<object> = [];
+        const list: Array<object> = [];
         data.map((el: any) => {
           list.push({ id: el.id, text: el.name });
         });
@@ -49,7 +49,7 @@ export const useRepositories = defineStore("repositories", () => {
         const { data } = await octokit.request(
           `GET /repos/${auth.username}/${repo}/branches`
         );
-        let list: Array<object> = [];
+        const list: Array<object> = [];
 
         data.map((el: any) => {
           list.push({ id: el.commit.sha, text: el.name });
@@ -65,7 +65,7 @@ export const useRepositories = defineStore("repositories", () => {
   async function getCommits(
     repo: string,
     sha: string,
-    pagination = { per_page: 7, page: 1 },
+    pagination = { per_page: 20, page: 1 },
     loadMore = false
   ) {
     return new Promise<boolean>(async (resolve) => {
@@ -84,7 +84,7 @@ export const useRepositories = defineStore("repositories", () => {
         );
         if (!data.length) lastPage.value = true;
         data.map((el: any) => {
-          let item = el.commit;
+          const item = el.commit;
           item.html_url = el.html_url;
           commitsList.value.push(item);
         });

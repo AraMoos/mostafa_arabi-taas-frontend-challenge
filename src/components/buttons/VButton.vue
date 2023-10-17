@@ -15,6 +15,6 @@ const handleClick = () => {
 
 <template>
   <button class="py-3 px-7 bg-color-primary rounded" @click="handleClick">
-    <span class="text-white font-medium">{{ label }}</span>
+    <span class="text-white font-medium">{{ props.label }}</span>
   </button>
 </template>

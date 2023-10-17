@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import VButton from "@/components/buttons/VButton.vue";
-import Loader from "@/components/Loader.vue";
+import VLoader from "@/components/VLoader.vue";
 import { useAuth } from "@/stores/auth";
 import router from "@/router";
 import axios from "axios";
@@ -35,7 +35,7 @@ const checkUrl = () => {
           router.push("/");
         }
       })
-      .catch((err) => {
+      .catch(() => {
         isLoading.value = false;
       });
   } else {
@@ -60,7 +60,7 @@ onMounted(() => {
           label="Authorize my Github account"
           @on-click="getAuthorize"
         />
-        <div v-else><Loader/></div>
+        <div v-else><VLoader /></div>
       </div>
     </div>
   </div>

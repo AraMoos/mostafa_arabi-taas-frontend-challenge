@@ -21,16 +21,16 @@ const dateFormat = (d: string) => {
     class="border border-gray-200 rounded-lg p-4 flex items-center justify-between"
   >
     <div class="flex flex-col gap-y-2">
-      <span class="font-normal text-xs"> {{ item?.message }} </span>
+      <span class="font-normal text-xs"> {{ props.item?.message }} </span>
       <span class="pl-8 font-medium text-xs">
-        <span>{{ item?.committer.name }} - </span>
+        <span>{{ props.item?.committer.name }} - </span>
         <span class="font-normal text-gray-400"
-          >committed on {{ dateFormat(item?.author.date) }}</span
+          >committed on {{ dateFormat(props.item?.author.date) }}</span
         >
       </span>
     </div>
     <a
-      :href="item?.html_url"
+      :href="props.item?.html_url"
       title="Browse the repository at this point in the history"
       target="_blank"
       rel="noopener noreferrer"
