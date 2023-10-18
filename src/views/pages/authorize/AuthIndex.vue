@@ -7,7 +7,7 @@ import router from "@/router";
 import axios from "axios";
 
 // if you want to use your own github oath app replace client_id and client_secret by yours in .env file
-const client_id =  import.meta.env.VITE_CLIENT_ID;
+const client_id = import.meta.env.VITE_CLIENT_ID;
 const client_secret = import.meta.env.VITE_CLIENT_SECRET;
 
 //base urls

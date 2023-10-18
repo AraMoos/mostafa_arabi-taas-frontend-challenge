@@ -27,7 +27,7 @@ export const useRepositories = defineStore("repositories", () => {
           `GET /users/${auth.username}/repos`
         );
         const list: Array<object> = [];
-        data.map((el: any) => {
+        data.forEach((el: any) => {
           list.push({ id: el.id, text: el.name });
         });
         reposList.value = list;
@@ -51,7 +51,7 @@ export const useRepositories = defineStore("repositories", () => {
         );
         const list: Array<object> = [];
 
-        data.map((el: any) => {
+        data.forEach((el: any) => {
           list.push({ id: el.commit.sha, text: el.name });
         });
         branchesList.value = list;
@@ -83,7 +83,7 @@ export const useRepositories = defineStore("repositories", () => {
           `GET /repos/${auth.username}/${repo}/commits?sha=${sha}&per_page=${pagination.per_page}&page=${pagination.page}`
         );
         if (!data.length) lastPage.value = true;
-        data.map((el: any) => {
+        data.forEach((el: any) => {
           const item = el.commit;
           item.html_url = el.html_url;
           commitsList.value.push(item);
