@@ -12,7 +12,7 @@ const repositories = useRepositories();
 // Mounted
 onMounted(async () => {
   const token = auth.isLoggedin();
-  if (token && auth.accessToken === "") {
+  if (token && auth.user.accessToken === "") {
     await auth.userSession(token, async () => {
       await repositories.getRepos();
     });

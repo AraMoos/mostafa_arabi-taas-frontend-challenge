@@ -2,33 +2,34 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { Octokit } from "octokit";
 import { useAuth } from "@/stores/auth";
-
+import type Repository from "@/types/Repository";
+import type Branch from "@/types/Branch";
+import type Commit from "@/types/Commit";
 const auth = useAuth();
 
 export const useRepositories = defineStore("repositories", () => {
-  const initArray: Array<object> = [];
-  const reposList = ref(initArray);
-  const branchesList = ref(initArray);
-  const commitsList = ref(initArray);
+  const reposList = ref<Array<Repository>>([]);
+  const branchesList = ref<Array<Branch>>([]);
+  const commitsList = ref<Array<Commit>>([]);
   const commitsLoading = ref(true);
   const lastPage = ref(false);
-  const currentRepo = ref({});
-  const currentBranch = ref({});
+  const currentRepo = ref<Repository | null>(null);
+  const currentBranch = ref<Branch | null>(null);
 
   // Methods
-  async function getRepos() {
+  function getRepos() {
     return new Promise<boolean>(async (resolve) => {
       const octokit = new Octokit({
-        auth: auth.accessToken,
+        auth: auth.user.accessToken,
       });
       try {
         // Octokit request to get login
         const { data } = await octokit.request(
-          `GET /users/${auth.username}/repos`
+          `GET /users/${auth.user.username}/repos`
         );
-        const list: Array<object> = [];
+        const list: Array<Repository> = [];
         data.forEach((el: any) => {
-          list.push({ id: el.id, text: el.name });
+          list.push({ id: el.id, name: el.name });
         });
         reposList.value = list;
         if (list.length) setCurrentRepo(list[0]);
@@ -39,20 +40,20 @@ export const useRepositories = defineStore("repositories", () => {
     });
   }
 
-  async function getBranches(repo: string) {
+  function getBranches(repo: string) {
     return new Promise<boolean>(async (resolve) => {
       const octokit = new Octokit({
-        auth: auth.accessToken,
+        auth: auth.user.accessToken,
       });
       try {
         // Octokit request to get login
         const { data } = await octokit.request(
-          `GET /repos/${auth.username}/${repo}/branches`
+          `GET /repos/${auth.user.username}/${repo}/branches`
         );
-        const list: Array<object> = [];
+        const list: Array<Branch> = [];
 
         data.forEach((el: any) => {
-          list.push({ id: el.commit.sha, text: el.name });
+          list.push({ id: el.commit.sha, name: el.name });
         });
         branchesList.value = list;
         if (list.length) setCurrentBranch(list[0]);
@@ -62,7 +63,7 @@ export const useRepositories = defineStore("repositories", () => {
       }
     });
   }
-  async function getCommits(
+  function getCommits(
     repo: string,
     sha: string,
     pagination = { per_page: 20, page: 1 },
@@ -70,7 +71,7 @@ export const useRepositories = defineStore("repositories", () => {
   ) {
     return new Promise<boolean>(async (resolve) => {
       const octokit = new Octokit({
-        auth: auth.accessToken,
+        auth: auth.user.accessToken,
       });
       if (!loadMore) commitsLoading.value = true;
       if (pagination.page === 1) {
@@ -80,15 +81,22 @@ export const useRepositories = defineStore("repositories", () => {
       try {
         // Octokit request to get login
         const { data } = await octokit.request(
-          `GET /repos/${auth.username}/${repo}/commits?sha=${sha}&per_page=${pagination.per_page}&page=${pagination.page}`
+          `GET /repos/${auth.user.username}/${repo}/commits?sha=${sha}&per_page=${pagination.per_page}&page=${pagination.page}`
         );
         if (!data.length) lastPage.value = true;
         data.forEach((el: any) => {
-          const item = el.commit;
-          item.html_url = el.html_url;
+          const item: Commit = {
+            id: el.sha,
+            url: el.html_url,
+            message: el.commit.message,
+            committer: {
+              date: el.commit.committer.date,
+              name: el.commit.committer.name,
+            },
+          };
+          item.url = el.html_url;
           commitsList.value.push(item);
         });
-        console.log(commitsList.value);
         commitsLoading.value = false;
         resolve(true);
       } catch (error) {
@@ -98,10 +106,10 @@ export const useRepositories = defineStore("repositories", () => {
     });
   }
 
-  function setCurrentRepo(current: object) {
+  function setCurrentRepo(current: Repository) {
     currentRepo.value = current;
   }
-  function setCurrentBranch(current: object) {
+  function setCurrentBranch(current: Branch) {
     currentBranch.value = current;
   }
 

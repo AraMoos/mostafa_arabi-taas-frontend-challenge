@@ -2,11 +2,14 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { Octokit } from "octokit";
 import router from "@/router";
+import type User from "@/types/User";
 
 export const useAuth = defineStore("auth", () => {
-  const username = ref("");
-  const accessToken = ref("");
-  const avatarUrl = ref("");
+  const user = ref<User>({
+    username: "",
+    accessToken: "",
+    avatarUrl: "",
+  });
 
   // Methods
   function isLoggedin() {
@@ -30,9 +33,12 @@ export const useAuth = defineStore("auth", () => {
         const {
           data: { login, avatar_url },
         } = await octokit.rest.users.getAuthenticated();
-        username.value = login;
-        accessToken.value = token;
-        avatarUrl.value = avatar_url;
+        const authUser: User = {
+          username: login,
+          accessToken: token,
+          avatarUrl: avatar_url,
+        };
+        user.value = authUser;
         callback();
         resolve(true);
       } catch (error) {
@@ -48,9 +54,7 @@ export const useAuth = defineStore("auth", () => {
   }
 
   return {
-    username,
-    accessToken,
-    avatarUrl,
+    user,
     isLoggedin,
     userSession,
     logOut,

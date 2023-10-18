@@ -3,22 +3,23 @@ import LogOutIcon from "@/assets/icons/LogOutIcon.vue";
 import VSelect from "@/components/inputs/VSelect.vue";
 import { useAuth } from "@/stores/auth";
 import { useRepositories } from "@/stores/repositories";
+import type Repository from "@/types/Repository";
 
 const auth = useAuth();
 const repositories = useRepositories();
 
 // Methods
 
-const getBranchesList = async (current: any) => {
-  if (current?.text) {
+const getBranchesList = async (current: Repository) => {
+  if (current?.name) {
     repositories.setCurrentRepo(current);
-    await repositories.getBranches(current.text);
+    await repositories.getBranches(current.name);
   }
 };
 
-const getCommitsList = async (current: any) => {
-  if (current?.text && repositories.currentRepo) {
-    await repositories.getCommits(repositories.currentRepo.text, current.text);
+const getCommitsList = async (current: Repository) => {
+  if (current?.name && repositories.currentRepo) {
+    await repositories.getCommits(repositories.currentRepo.name, current.name);
   }
 };
 </script>

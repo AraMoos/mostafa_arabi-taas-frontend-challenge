@@ -10,10 +10,11 @@ const loadMore = ref(false);
 const repositories = useRepositories();
 
 // Methods
-const doScroll = async (event) => {
-  const scrollHeight = event.target.scrollHeight;
-  const scrollTop = event.target.scrollTop;
-  const clientHeight = event.target.clientHeight;
+const doScroll = async (event: Event) => {
+  const e =(event.target as HTMLElement);
+  const scrollHeight = e.scrollHeight;
+  const scrollTop = e.scrollTop;
+  const clientHeight = e.clientHeight;
   if (
     scrollTop + clientHeight >= scrollHeight &&
     !loadMore.value &&
@@ -22,8 +23,8 @@ const doScroll = async (event) => {
     loadMore.value = true;
     pagination.value.page++;
     await repositories.getCommits(
-      repositories.currentRepo.text,
-      repositories.currentBranch.text,
+      repositories.currentRepo!.name,
+      repositories.currentBranch!.name,
       pagination.value,
       true
     );

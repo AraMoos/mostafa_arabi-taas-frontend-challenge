@@ -7,11 +7,11 @@ const auth = useAuth();
     <span class="flex items-center gap-x-3">
       <div class="text-sm c-gray-text">
         <p class="font-normal">
-          Hello, <span class="font-medium">{{ auth.username }}</span>
+          Hello, <span class="font-medium">{{ auth.user.username }}</span>
         </p>
       </div>
       <img
-        :src="auth.avatarUrl"
+        :src="auth.user.avatarUrl"
         alt=""
         srcset=""
         class="rounded-full w-12 h-12 bg-color-dark-20"

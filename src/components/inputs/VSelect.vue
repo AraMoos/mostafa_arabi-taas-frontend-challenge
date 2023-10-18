@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref, watch, onMounted } from "vue";
-
 // Props
 
 const props = defineProps({
@@ -26,13 +25,13 @@ const emits = defineEmits(["onChange"]);
 const filterData = () => {
   const val = searchVal.value.trim().toLowerCase();
   filteredOptions.value = props.options.filter((el: any) =>
-    el.text.toLowerCase().includes(val)
+    el.name.toLowerCase().includes(val)
   );
 };
 
 const selectOption = (option: any) => {
   selectedOption.value = option;
-  searchVal.value = option?.text || "";
+  searchVal.value = option?.name || "";
   emits("onChange", selectedOption.value);
 };
 
@@ -40,7 +39,7 @@ const init = () => {
   filteredOptions.value = props.options;
   if (props.options.length) {
     selectedOption.value = props.options[0];
-    searchVal.value = props.options[0].text;
+    searchVal.value = props.options[0].name;
     emits("onChange", selectedOption.value);
   }
 };
@@ -79,7 +78,7 @@ watch(
             :key="option.id"
             @click="selectOption(option)"
           >
-            <span>{{ option.text }}</span>
+            <span>{{ option.name }}</span>
           </li>
         </ul>
       </div>
