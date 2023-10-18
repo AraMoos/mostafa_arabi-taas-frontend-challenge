@@ -14,7 +14,6 @@ export const useAuth = defineStore("auth", () => {
   // Methods
   function isLoggedin() {
     const token = localStorage.getItem("@accessToken");
-    // Create an instance of Octokit with user access token
     if (token) {
       return token;
     } else {
