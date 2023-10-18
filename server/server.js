@@ -39,18 +39,22 @@ app.get('/access_token', async (req, res) => {
 // request to get data
 app.get('/data', async (req, res) => {
   const request = req.query.request;
-  await fetch(`${apiUrl}/${request}`, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: req.get('Authorization'),
-    },
-  })
-    .then((response) => {
-      return response.json();
+  try {
+    await fetch(`${apiUrl}/${request}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: req.get('Authorization'),
+      },
     })
-    .then((data) => {
-      res.json(data);
-    });
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        res.json(data);
+      });
+  } catch (error) {
+    throw error;
+  }
 });
 
 app.listen(4000, function () {
