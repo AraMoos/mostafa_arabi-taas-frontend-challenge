@@ -11,7 +11,7 @@ const repositories = useRepositories();
 
 // Methods
 const doScroll = async (event: Event) => {
-  const e =(event.target as HTMLElement);
+  const e = event.target as HTMLElement;
   const scrollHeight = e.scrollHeight;
   const scrollTop = e.scrollTop;
   const clientHeight = e.clientHeight;

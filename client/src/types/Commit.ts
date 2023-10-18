@@ -6,5 +6,5 @@ type Commit = {
     date: string;
     name: string;
   };
-}
+};
 export default Commit;

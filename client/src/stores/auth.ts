@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { Octokit } from "octokit";
 import router from "@/router";
+import axios from "axios";
 import type User from "@/types/User";
 
 export const useAuth = defineStore("auth", () => {
@@ -23,28 +23,34 @@ export const useAuth = defineStore("auth", () => {
   }
 
   function userSession(token: string, callback: () => void) {
-    return new Promise<boolean>(async (resolve) => {
+    return new Promise<boolean>((resolve) => {
       localStorage.setItem("@accessToken", token);
-      const octokit = new Octokit({
-        auth: token,
-      });
-      try {
-        // Octokit request to get login
-        const {
-          data: { login, avatar_url },
-        } = await octokit.rest.users.getAuthenticated();
-        const authUser: User = {
-          username: login,
-          accessToken: token,
-          avatarUrl: avatar_url,
-        };
-        user.value = authUser;
-        callback();
-        resolve(true);
-      } catch (error) {
-        logOut();
-        resolve(false);
-      }
+      axios
+        .get(`/data?request=user`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(async (res) => {
+          if (res.status == 200) {
+            const {
+              data: { login, avatar_url },
+            } = res;
+            const authUser: User = {
+              username: login,
+              accessToken: token,
+              avatarUrl: avatar_url,
+            };
+            user.value = authUser;
+            callback();
+            resolve(true);
+          } else {
+            logOut();
+            resolve(false);
+          }
+        })
+        .catch(() => {
+          logOut();
+          resolve(false);
+        });
     });
   }
 

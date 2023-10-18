@@ -10,8 +10,7 @@ import axios from "axios";
 const client_id = import.meta.env.VITE_CLIENT_ID;
 
 //base urls
-const baseUrl = import.meta.env.VITE_GITHUB_BASE_URL;
-const apiUrl = import.meta.env.VITE_API_URL;
+const githubBaseUrl = import.meta.env.VITE_GITHUB_BASE_URL;
 
 // State
 const isLoading = ref(true);
@@ -21,14 +20,14 @@ const auth = useAuth();
 
 // Actions
 const getAuthorize = () => {
-  window.location.assign(`${baseUrl}authorize?client_id=${client_id}`);
+  window.location.assign(`${githubBaseUrl}authorize?client_id=${client_id}`);
 };
 
 // Methods
 const checkUrl = () => {
   const code = router.currentRoute.value.query?.code;
   if (code) {
-    const request = `${apiUrl}access_token?code=${code}`;
+    const request = `/access_token?code=${code}`;
     axios
       .get(request)
       .then(async (res) => {

@@ -15,8 +15,8 @@ app.use(pinia);
 app.use(router);
 app.use(VueAxios, axios);
 
-axios.defaults.headers.common["Content-Type"] =
-  "application/x-www-form-urlencoded";
+axios.defaults.headers.common["Content-Type"] = "application/json";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 app.mount("#app");
