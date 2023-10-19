@@ -10,40 +10,58 @@ To setup app clone repositry  in your machine open terminal then run  command be
 git clone git@github.com:AraMoos/mostafa_arabi-taas-frontend-challenge.git
 ```
 
-then run :
+### frontend (vuejs) Installation
 
 ```sh
-cd mostafa_arabi-taas-frontend-challenge
-```
+cd mostafa_arabi-taas-frontend-challenge/client
 
-### Installation
+```
+then : 
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+#### Compile and Hot-Reload for Development
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+#### Type-Check, Compile and Minify for Production
 
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+#### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
 npm run test:unit
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+#### Lint with [ESLint](https://eslint.org/)
 
 ```sh
 npm run lint
+```
+
+### backend (server) Installation
+
+```sh
+cd mostafa_arabi-taas-frontend-challenge/server
+
+```
+then : 
+
+```sh
+npm install
+```
+
+#### run server
+
+```sh
+npm run start
 ```
 
 ## App pictures
